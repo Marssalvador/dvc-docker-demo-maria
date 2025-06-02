@@ -1,0 +1,18 @@
+# DVC Configuration
+# Este archivo contiene configuración específica para DVC
+
+# Configuración básica
+analytics: false
+check_update: false
+
+# Configuración de cache
+cache:
+  type: reflink,copy
+
+# Configuración de estado
+state:
+  auto_stage: true
+
+# Configuración de logs
+logs:
+  level: INFO

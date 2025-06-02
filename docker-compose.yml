@@ -1,0 +1,40 @@
+# Docker Compose para ML + DVC + Docker Demo
+# Configuración alternativa para ejecutar el proyecto
+
+version: '3.8'
+
+services:
+  ml-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ml-dvc-demo:latest
+    container_name: ml-dvc-demo-container
+    volumes:
+      - ./models:/app/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DVC_NO_ANALYTICS=true
+    command: python main.py
+    
+  ml-demo-interactive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ml-dvc-demo:latest
+    container_name: ml-dvc-demo-interactive
+    volumes:
+      - ./models:/app/models
+      - .:/app-host
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DVC_NO_ANALYTICS=true
+    command: bash
+    stdin_open: true
+    tty: true
+    profiles:
+      - interactive
+
+networks:
+  default:
+    name: ml-demo-network
